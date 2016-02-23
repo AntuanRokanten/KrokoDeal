@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">KrokoDeal</string>
-    <string name="action_settings">Settings</string>
+    <string name="start">Играть</string>
+    <string name="ruler">Правила</string>
+    <string name="timer_check_label">Использовать таймер</string>
+    <string name="timer_minutes_hint">минут</string>
+    <string name="timer_sec_hint">секунд</string>
+    <string name="timer_separator">:</string>
+    <string name="players">Игроки</string>
+    <string name="add_player">Добавить</string>
+    <string name="start_game">Начать</string>
+    <string name="player">Игрок</string>
+    <string name="player_name_mock">Глокая куздра</string>
+    <string name="shows_word">показывает слово</string>
+    <string name="enter_word">введи слово</string>
+    <string name="show">Показывать</string>
+    <string name="guessed">Отгадано</string>
+    <string name="not_guessed">Не отгадано</string>
+    <string name="time_zero">00</string>
 </resources>

@@ -1,4 +1,4 @@
-<resources>>
+<resources>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -6,4 +6,23 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.PinkButton" parent="AppTheme">
+        <item name="android:colorButtonNormal">@color/pink</item>
+    </style>
+
+    <style name="AppTheme.YellowButton" parent="AppTheme">
+        <item name="android:colorButtonNormal">@color/colorPrimaryDark</item>
+    </style>
+
+
 </resources>
