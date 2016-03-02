@@ -6,8 +6,11 @@
     <string name="timer_minutes_hint">минут</string>
     <string name="timer_sec_hint">секунд</string>
     <string name="timer_separator">:</string>
+    <string name="add_confirm">Добавить</string>
+    <string name="add_cancel">Отмена</string>
     <string name="players">Игроки</string>
     <string name="add_player">Добавить</string>
+    <string name="add_new_player">Введи имя нового игрока</string>
     <string name="start_game">Начать</string>
     <string name="player">Игрок</string>
     <string name="player_name_mock">Глокая куздра</string>
@@ -17,4 +20,6 @@
     <string name="guessed">Отгадано</string>
     <string name="not_guessed">Не отгадано</string>
     <string name="time_zero">00</string>
+    <string name="host">Ведущий</string>
+    <string name="snackbar_fail">Время истекло, слово не отгадано :(</string>
 </resources>

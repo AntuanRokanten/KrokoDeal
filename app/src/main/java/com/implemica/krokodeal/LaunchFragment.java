@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * @author ant
  */
-public class LaunchFragment extends Fragment {
+public class LaunchFragment extends Fragment { // todo remove
 
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -20,16 +20,17 @@
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/player"
             android:textColor="@color/text_semitransparent"
-            android:textSize="@dimen/big_font_size"/>
+            android:textSize="@dimen/large_font_size"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:text="@string/player_name_mock"
-            android:textColor="@color/white"
-            android:textSize="@dimen/big_font_size"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/player_name_mock"
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_font_size"
+                android:id="@+id/player_name"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:weightSum="5">
 
@@ -54,13 +55,13 @@
                 android:layout_weight="4"
                 android:hint="@string/enter_word"
                 android:textColor="@color/white"
-                android:textSize="@dimen/big_font_size"/>
+                android:textSize="30sp"/>
 
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_refresh_white_36dp"/>
         </android.support.v7.widget.LinearLayoutCompat>
@@ -72,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="35"
+        android:gravity="center"
         android:background="@color/colorPrimary">
 
     </android.support.v7.widget.LinearLayoutCompat>

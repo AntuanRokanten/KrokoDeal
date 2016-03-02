@@ -15,10 +15,11 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/count_down_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/timer_check_label"
-            android:textSize="@dimen/settings_font_size">
+            android:textSize="@dimen/middle_font_size">
         </android.support.v7.widget.AppCompatCheckBox>
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -28,30 +29,33 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/set_count_down_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:gravity="right"
                 android:hint="@string/timer_minutes_hint"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/settings_font_size">
+                android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatEditText>
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/timer_separator"
-                android:textSize="@dimen/settings_font_size">
+                android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatTextView>
 
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/set_count_down_sec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:hint="@string/timer_sec_hint"
                 android:inputType="number"
                 android:maxLength="2"
-                android:textSize="@dimen/settings_font_size">
+                android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatEditText>
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -76,24 +80,26 @@
             android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/players"
             android:textColor="@color/white"
-            android:textSize="@dimen/settings_font_size">
+            android:textSize="@dimen/middle_font_size">
         </android.support.v7.widget.AppCompatTextView>
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/add_player"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
             android:text="@string/add_player"/>
 
-
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/user_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/players"
-            android:layout_margin="@dimen/standard_margin">
+            android:layout_margin="@dimen/standard_margin"
+            android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
@@ -105,10 +111,12 @@
         android:background="@color/colorAccent">
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/start_playing_button"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/standard_margin"
             android:text="@string/start_game"
             android:theme="@style/AppTheme.YellowButton"/>
     </LinearLayout>
