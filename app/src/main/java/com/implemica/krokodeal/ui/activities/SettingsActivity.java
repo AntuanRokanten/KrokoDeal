@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,7 +18,8 @@ import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
 import com.implemica.krokodeal.ui.MyAdapter;
 import com.implemica.krokodeal.ui.dialogs.AddPlayerDialog;
-import com.implemica.krokodeal.utils.TimerData;
+import com.implemica.krokodeal.ui.listeners.HideKeyboardListener;
+import com.implemica.krokodeal.util.TimerData;
 
 import java.util.ArrayList;
 
@@ -60,9 +60,10 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
                Intent intent = new Intent(SettingsActivity.this, PlayActivity.class);
 
                if(countDownCheck.isChecked()) {
-                  String secs = countDownSec.getText().toString();
+                  String secondsText = countDownSec.getText().toString();
+                  String secs = secondsText.isEmpty() ? "0" : secondsText;
                   String mins = countDownMin.getText().toString();
-                  if(mins.isEmpty() || secs.isEmpty() || Integer.valueOf(secs) >= 60) {
+                  if(mins.isEmpty() || Integer.valueOf(secs) >= 60) {
                      // todo shot snackbar
                      return;
                   }
@@ -97,10 +98,15 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
          }
       });
 
+      HideKeyboardListener focusChangeListener = HideKeyboardListener.getInstance();
+      countDownMin.setOnFocusChangeListener(focusChangeListener);
+      countDownSec.setOnFocusChangeListener(focusChangeListener);
+
       adapter = new MyAdapter();
 
       playerList.setLayoutManager(new LinearLayoutManager(this));
       playerList.setAdapter(adapter);
+
    }
 
    private void initViews() {
@@ -108,7 +114,6 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
       countDownCheck = (CheckBox) findViewById(R.id.count_down_check);
       countDownMin = (EditText) findViewById(R.id.set_count_down_min);
       countDownSec = (EditText) findViewById(R.id.set_count_down_sec);
-      playerList = (RecyclerView) findViewById(R.id.user_list);
       playBtn = (Button) findViewById(R.id.start_playing_button);
       playerList = (RecyclerView) findViewById(R.id.user_list);
    }
@@ -118,4 +123,5 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
       adapter.addPlayer(player);
       playerList.scrollToPosition(adapter.getItemCount() - 1);
    }
+
 }

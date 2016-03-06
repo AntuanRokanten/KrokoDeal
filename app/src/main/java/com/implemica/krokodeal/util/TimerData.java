@@ -1,4 +1,4 @@
-package com.implemica.krokodeal.utils;
+package com.implemica.krokodeal.util;
 
 import android.os.Parcel;
 import android.os.Parcelable;

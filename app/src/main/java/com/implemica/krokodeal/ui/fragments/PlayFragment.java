@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
@@ -14,9 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.implemica.krokodeal.ChooseWinnerListener;
+import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
 import com.implemica.krokodeal.ui.activities.PlayActivity;
-import com.implemica.krokodeal.utils.TimerData;
+import com.implemica.krokodeal.ui.dialogs.ChoosePlayerDialog;
+import com.implemica.krokodeal.util.TimerData;
+
+import java.util.ArrayList;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.MINUTES;
@@ -25,7 +31,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 /**
  * @author ant
  */
-public class PlayFragment extends Fragment {
+public class PlayFragment extends Fragment implements ChooseWinnerListener {
 
    private static final String LOG_TAG = PlayFragment.class.getCanonicalName();
 
@@ -38,8 +44,6 @@ public class PlayFragment extends Fragment {
    private Button succesButton;
 
    private Button failureButton;
-
-   private Fragment playShowFragment = new PlayShowFragment();
 
    @Nullable
    @Override
@@ -67,14 +71,45 @@ public class PlayFragment extends Fragment {
       succesButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            // todo show players list
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.play_fragment_container, playShowFragment);
-            transaction.commit();
+            // prapare show winner dialog
+            ChoosePlayerDialog playerDialog = new ChoosePlayerDialog();
+            playerDialog.setChooseWinnerListener(PlayFragment.this);
+
+            Bundle bundle = new Bundle();
+            ArrayList<Player> players = (ArrayList<Player>) ((PlayActivity) getActivity()).getPlayers();
+            players.remove(((PlayActivity) getActivity()).getHostIndex());
+
+            bundle.putParcelableArrayList("players", players);
+            playerDialog.setArguments(bundle);
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            playerDialog.show(fragmentManager, "TAG");
+         }
+      });
+
+      failureButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            resetUI();
          }
       });
 
       return view;
+   }
+
+   @Override
+   public void onWinnerChosen(Player winner) {
+      // setting fragment with show button and fragment with enter new word
+      ((PlayActivity) getActivity()).changeHost(winner);
+
+      resetUI();
+   }
+
+   private void resetUI() {
+      FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+      transaction.replace(R.id.play_fragment_container, new PlayShowFragment());
+      transaction.replace(R.id.word_container, new SetWordFragment());
+      transaction.commit();
    }
 
    private class KrokoCountDownTimer extends CountDownTimer {

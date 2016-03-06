@@ -1,6 +1,5 @@
 package com.implemica.krokodeal.ui;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
       View v = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.player_card, parent, false);
       // set the view's size, margins, paddings and layout parameters
-      ViewHolder vh = new ViewHolder(v);
-      return vh;
+      return new ViewHolder(v);
    }
 
    @Override
@@ -89,13 +87,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
    // you provide access to all the views for a data item in a view holder
    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
       // each data item is just a string in this case
-      CardView cardView;
       TextView mTextView; //  todo rename and refactor
       TextView host;
 
       public ViewHolder(View v) {
          super(v);
-         cardView = (CardView) v.findViewById(R.id.player_card);
          mTextView = (TextView) v.findViewById(R.id.player_card_name);
          host = (TextView) v.findViewById(R.id.host_text_field);
 
@@ -105,6 +101,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
       @Override
       public void onClick(View v) {
          int clickedPosition = getLayoutPosition();
+
+         if(clickedPosition == hostIndex) {
+            return;
+         }
+
          players.get(clickedPosition).setIsHost(true); // todo refactor
          notifyItemChanged(clickedPosition);
 

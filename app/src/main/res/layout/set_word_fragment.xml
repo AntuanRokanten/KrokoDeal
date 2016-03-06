@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat android:id="@+id/word_container"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+    <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/enter_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_weight="4"
+            android:hint="@string/enter_word"
+            android:textColor="@color/white"
+            android:maxLength="13"
+            android:maxLines="1"
+            android:textSize="30sp"/>
+
+    <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/refresh_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_weight="1"
+            android:src="@drawable/ic_refresh_white_36dp"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

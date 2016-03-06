@@ -2,60 +2,62 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
                                               android:layout_width="match_parent"
                                               android:layout_height="match_parent"
+                                              android:clickable="true"
+                                              android:focusableInTouchMode="true"
                                               android:orientation="vertical"
                                               android:weightSum="4">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:elevation="10dp"
-        android:gravity="center"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/count_down_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/timer_check_label"
-            android:textSize="@dimen/middle_font_size">
+                android:id="@+id/count_down_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timer_check_label"
+                android:textSize="@dimen/middle_font_size">
         </android.support.v7.widget.AppCompatCheckBox>
 
         <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/set_count_down_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:gravity="right"
-                android:hint="@string/timer_minutes_hint"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textSize="@dimen/middle_font_size">
+                    android:id="@+id/set_count_down_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:hint="@string/timer_minutes_hint"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatEditText>
 
             <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/timer_separator"
-                android:textSize="@dimen/middle_font_size">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timer_separator"
+                    android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatTextView>
 
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/set_count_down_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/timer_sec_hint"
-                android:inputType="number"
-                android:maxLength="2"
-                android:textSize="@dimen/middle_font_size">
+                    android:id="@+id/set_count_down_sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="@string/timer_sec_hint"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textSize="@dimen/middle_font_size">
             </android.support.v7.widget.AppCompatEditText>
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -63,62 +65,62 @@
     </android.support.v7.widget.LinearLayoutCompat>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@color/colorAccent"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/colorAccent"
+            android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/players"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:text="@string/players"
-            android:textColor="@color/white"
-            android:textSize="@dimen/middle_font_size">
+                android:id="@+id/players"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/players"
+                android:textColor="@color/white"
+                android:textSize="@dimen/middle_font_size">
         </android.support.v7.widget.AppCompatTextView>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/add_player"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
-            android:text="@string/add_player"/>
+                android:id="@+id/add_player"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="7dp"
+                android:text="@string/add_player"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/user_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/players"
-            android:layout_margin="@dimen/standard_margin"
-            android:scrollbars="vertical">
+                android:id="@+id/user_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/players"
+                android:layout_margin="@dimen/standard_margin"
+                android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/colorAccent">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/start_playing_button"
-            style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/start_game"
-            android:theme="@style/AppTheme.YellowButton"/>
+            android:layout_weight="1"
+            android:background="@color/colorAccent">
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/start_playing_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_margin"
+                android:text="@string/start_game"
+                android:theme="@style/AppTheme.YellowButton"/>
     </LinearLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>

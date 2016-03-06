@@ -2,79 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:clickable="true"
+              android:focusableInTouchMode="true"
               android:orientation="vertical"
               android:weightSum="100">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="65"
-        android:background="@color/colorAccent"
-        android:elevation="@dimen/standard_elevation"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="65"
+            android:background="@color/colorAccent"
+            android:elevation="@dimen/standard_elevation"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/player"
-            android:textColor="@color/text_semitransparent"
-            android:textSize="@dimen/large_font_size"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:text="@string/player"
+                android:textColor="@color/text_semitransparent"
+                android:textSize="@dimen/large_font_size"/>
 
         <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/player_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:text="@string/player_name_mock"
                 android:textColor="@color/white"
-                android:textSize="@dimen/large_font_size"
-                android:id="@+id/player_name"/>
+                android:textSize="@dimen/large_font_size"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/shows_word"
-            android:textColor="@color/text_semitransparent"
-            android:textSize="35sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:text="@string/shows_word"
+                android:textColor="@color/text_semitransparent"
+                android:textSize="35sp"/>
 
         <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <android.support.v7.widget.AppCompatEditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_weight="4"
-                android:hint="@string/enter_word"
-                android:textColor="@color/white"
-                android:textSize="30sp"/>
-
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_refresh_white_36dp"/>
+                android:orientation="horizontal"
+                android:id="@+id/word_container">
+
         </android.support.v7.widget.LinearLayoutCompat>
 
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/play_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="35"
-        android:gravity="center"
-        android:background="@color/colorPrimary">
+            android:id="@+id/play_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="35"
+            android:background="@color/colorPrimary"
+            android:gravity="center">
 
     </android.support.v7.widget.LinearLayoutCompat>
 

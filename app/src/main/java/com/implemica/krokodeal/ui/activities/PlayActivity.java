@@ -5,13 +5,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
 import com.implemica.krokodeal.ui.fragments.PlayShowFragment;
-import com.implemica.krokodeal.utils.TimerData;
+import com.implemica.krokodeal.ui.fragments.SetWordFragment;
+import com.implemica.krokodeal.ui.listeners.HideKeyboardListener;
+import com.implemica.krokodeal.util.TimerData;
+import com.implemica.krokodeal.util.UiUtility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +34,10 @@ public class PlayActivity extends AppCompatActivity {
 
    private Fragment playShowFragment = new PlayShowFragment();
 
+   private Fragment setWordFragment = new SetWordFragment();
+
+   private int hostIndex;
+
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -36,15 +47,15 @@ public class PlayActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
       players = intent.getParcelableArrayListExtra("players");
-      int hostIndex = intent.getIntExtra("host_index", -1);
+      hostIndex = intent.getIntExtra("host_index", -1);
       timerData = intent.getParcelableExtra("timer");
 
       currentPlayer.setText(players.get(hostIndex).getName());
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
       transaction.replace(R.id.play_fragment_container, playShowFragment);
+      transaction.replace(R.id.word_container, setWordFragment);
       transaction.commit();
-
    }
 
    private void initViews() {
@@ -53,5 +64,32 @@ public class PlayActivity extends AppCompatActivity {
 
    public TimerData getTimerData() {
       return timerData;
+   }
+
+   public List<Player> getPlayers() {
+      return new ArrayList<>(players); // returning copy of the list
+   }
+
+   public int getHostIndex() {
+      return hostIndex;
+   }
+
+   public void changeHost(Player newHost){
+      String newHostName = newHost.getName();
+      currentPlayer.setText(newHostName);
+
+      players.get(hostIndex).setIsHost(false);
+
+      hostIndex = findPlayerIndexByName(newHost.getName());
+      players.get(hostIndex).setIsHost(true);
+   }
+
+   private int findPlayerIndexByName(String name) {
+      for (int i = 0; i < players.size(); i++) {
+         if (players.get(i).getName().equals(name)) {
+            return i;
+         }
+      }
+      return -1;
    }
 }
