@@ -14,13 +14,14 @@ import com.implemica.krokodeal.R;
 public class MainActivity extends AppCompatActivity {
 
    private Button playButton;
+   private Button rulesButton;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.main_activity);
 
-      playButton = (Button) findViewById(R.id.main_play_btn);
+      initViews();
 
       playButton.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -28,6 +29,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
          }
       });
+
+      rulesButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, RulesActivity.class));
+         }
+      });
+   }
+
+   private void initViews() {
+      playButton = (Button) findViewById(R.id.main_play_btn);
+      rulesButton = (Button) findViewById(R.id.btn_rules);
    }
 
 }

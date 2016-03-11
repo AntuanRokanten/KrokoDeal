@@ -12,7 +12,7 @@
         <activity
                 android:name=".ui.activities.MainActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,12 +21,16 @@
 
         <activity
                 android:name=".ui.activities.SettingsActivity"
-                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateHidden"/>
 
         <activity
                 android:name=".ui.activities.PlayActivity"
                 android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+                android:parentActivityName=".ui.activities.MainActivity"
+                android:name=".ui.activities.RulesActivity"
+                android:label="@string/rules_activity_label"/>
 
     </application>
 

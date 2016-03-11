@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.implemica.krokodeal.R;
+import com.implemica.krokodeal.database.DBHelper;
 import com.implemica.krokodeal.ui.listeners.HideKeyboardListener;
 
 /**
@@ -29,11 +30,12 @@ public class SetWordFragment extends Fragment {
       refreshWord = (ImageButton) view.findViewById(R.id.refresh_word);
       wordToGuess = (EditText) view.findViewById(R.id.enter_word);
 
-
+      final DBHelper dbHelper = new DBHelper(getActivity());
       refreshWord.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            wordToGuess.setText("Электричество");
+            String randomWord = dbHelper.retrieveRandomWord();
+            wordToGuess.setText(randomWord);
          }
       });
 

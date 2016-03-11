@@ -120,6 +120,7 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
 
    @Override
    public void onPlayerAdded(Player player) {
+      // todo prohibit add new player with same name
       adapter.addPlayer(player);
       playerList.scrollToPosition(adapter.getItemCount() - 1);
    }
