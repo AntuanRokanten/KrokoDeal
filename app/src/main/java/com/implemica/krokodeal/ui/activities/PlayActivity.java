@@ -67,7 +67,11 @@ public class PlayActivity extends AppCompatActivity {
    }
 
    public List<Player> getPlayers() {
-      return new ArrayList<>(players); // returning copy of the list
+      return new ArrayList<>(players); // returning copy of the list since in some methods host player will be removed (that shouldn't performed on the main list)
+   }
+
+   public Player getHost() {
+      return new ArrayList<>(players).get(hostIndex);
    }
 
    public int getHostIndex() {

@@ -16,12 +16,15 @@ import android.widget.EditText;
 import com.implemica.krokodeal.AddPlayerListener;
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
+import com.implemica.krokodeal.database.DBHelper;
 import com.implemica.krokodeal.ui.MyAdapter;
 import com.implemica.krokodeal.ui.dialogs.AddPlayerDialog;
 import com.implemica.krokodeal.ui.listeners.HideKeyboardListener;
 import com.implemica.krokodeal.util.TimerData;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author ant
@@ -61,17 +64,28 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
 
                if(countDownCheck.isChecked()) {
                   String secondsText = countDownSec.getText().toString();
+                  String minutesText = countDownMin.getText().toString();
+
+                  if (secondsText.isEmpty() && minutesText.isEmpty()) {
+                     return; // todo show snackbar
+                  }
+
                   String secs = secondsText.isEmpty() ? "0" : secondsText;
-                  String mins = countDownMin.getText().toString();
-                  if(mins.isEmpty() || Integer.valueOf(secs) >= 60) {
+                  String mins = minutesText.isEmpty() ? "0" : minutesText;
+                  
+                  if(Integer.valueOf(secs) >= 60) {
                      // todo shot snackbar
                      return;
                   }
                   intent.putExtra("timer", new TimerData(Integer.valueOf(mins), Integer.valueOf(secs)));
                }
 
-               intent.putParcelableArrayListExtra("players", (ArrayList<Player>) adapter.getPlayers()); // todo to constants
+               List<Player> players = adapter.getPlayers();
+               intent.putParcelableArrayListExtra("players", (ArrayList<Player>) players); // todo to constants
                intent.putExtra("host_index", hostIndex);
+
+               DBHelper dbHelper = new DBHelper(SettingsActivity.this);
+               dbHelper.saveUsers(players);
 
                startActivity(intent);
             }
@@ -92,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
             AddPlayerDialog addPlayerDialog = new AddPlayerDialog();
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-            addPlayerDialog.show(fragmentTransaction, "Dialogogog");
+            addPlayerDialog.show(fragmentTransaction, "Dialogogog"); // todo wtf
 
             addPlayerDialog.setAddPlayerListener(SettingsActivity.this);
          }
@@ -102,7 +116,7 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
       countDownMin.setOnFocusChangeListener(focusChangeListener);
       countDownSec.setOnFocusChangeListener(focusChangeListener);
 
-      adapter = new MyAdapter();
+      adapter = new MyAdapter(this);
 
       playerList.setLayoutManager(new LinearLayoutManager(this));
       playerList.setAdapter(adapter);

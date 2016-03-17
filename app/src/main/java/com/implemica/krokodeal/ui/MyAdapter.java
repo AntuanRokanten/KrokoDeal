@@ -1,5 +1,6 @@
 package com.implemica.krokodeal.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,13 @@ import android.widget.TextView;
 
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
+import com.implemica.krokodeal.database.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
 
 /**
  * @author ant
@@ -21,10 +26,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
    int hostIndex = -1;
 
    // Provide a suitable constructor (depends on the kind of dataset)
-   public MyAdapter() {
+   public MyAdapter(Context context) {
       players = new ArrayList<>();
-      players.add(new Player("Ant", false));
-      players.add(new Player("Kuz", false));
+      DBHelper dbHelper = new DBHelper(context);
+      Observable<Player> playersObservable = dbHelper.getPlayers();
+
+      playersObservable.subscribe(new Observer<Player>() {
+         @Override
+         public void onCompleted() {
+
+         }
+
+         @Override
+         public void onError(Throwable e) {
+            // todo show error
+         }
+
+         @Override
+         public void onNext(Player player) {
+            players.add(player);
+         }
+      });
+
+//      this.players.add(new Player("Ant", false));
+//      this.players.add(new Player("Kuz", false));
    }
 
    public void addPlayer(Player newPlayer) {
@@ -102,7 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
       public void onClick(View v) {
          int clickedPosition = getLayoutPosition();
 
-         if(clickedPosition == hostIndex) {
+         if (clickedPosition == hostIndex) {
             return;
          }
 

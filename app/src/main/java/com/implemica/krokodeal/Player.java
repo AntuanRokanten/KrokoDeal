@@ -12,6 +12,10 @@ public class Player implements Parcelable {
 
    private boolean isHost;
 
+   public Player(String name) {
+      this.name = name;
+   }
+
    public Player(String name, boolean isHost) {
       this.name = name;
       this.isHost = isHost;
