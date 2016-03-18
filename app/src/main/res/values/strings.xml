@@ -22,6 +22,12 @@
     <string name="time_zero">00</string>
     <string name="host">Ведущий</string>
     <string name="snackbar_fail">Время истекло, слово не отгадано :(</string>
+    <string name="snackbar_choose_host">Выбери ведущего что бы начать</string>
+    <string name="snackbar_add_more_players">Добавь минимум трёх игроков</string>
+    <string name="snackbar_set_timer">Установи время таймера</string>
+    <string name="snackbar_set_timer_correct">Неправильное время таймера</string>
+    <string name="snackbar_player_exists">Игрок с таким именем уже существует</string>
+    <string name="snackbar_empty_word">Загадай слово ведущему</string>
     <string name="who_guessed">Кто отгадал?</string>
     <string name="game_rules"><![CDATA[<div>Ведущий загадывает слово и человек пытается его изобразить, а остальная компания угадывает, что было загадано.</div>
 <div><b>Показывая слово МОЖНО:</b></div>

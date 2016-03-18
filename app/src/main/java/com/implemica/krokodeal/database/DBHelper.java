@@ -54,24 +54,24 @@ public class DBHelper extends SQLiteOpenHelper {
    public void onCreate(SQLiteDatabase db) {
       Log.d(LOG_TAG, "Creating database: " + DB_NAME);
 
-      db.execSQL("CREATE TABLE " + WORDS_TABLE_NAME + "( " + WORD_COLUMN +  "  TEXT )");
-      db.execSQL("CREATE TABLE " + PLAYERS_TABLE_NAME + "( " + ID_COLUMN +  "  INTEGER PRIMARY KEY AUTOINCREMENT, " +
+      db.execSQL("CREATE TABLE " + WORDS_TABLE_NAME + "( " + WORD_COLUMN + "  TEXT )");
+      db.execSQL("CREATE TABLE " + PLAYERS_TABLE_NAME + "( " + ID_COLUMN + "  INTEGER PRIMARY KEY AUTOINCREMENT, " +
             " " + USER_NAME_COLUMN + " TEXT," +
-            " " + GUESSES_COLUMN +  " INTEGER, " +
+            " " + GUESSES_COLUMN + " INTEGER, " +
             " " + SHOW_SUCCESS_COLUMN + " INTEGER, " +
             " " + SHOW_FAIL_COLUMN + " show_fail INTEGER )");
 
-      fillPlayersTable(db);
+//      fillPlayersTable(db);
       fillWordsTable(db);
    }
 
    private void fillPlayersTable(SQLiteDatabase db) { // todo delete later
-      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( "  + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
-      +  " ) VALUES ('Ant', 12, 3, 0)");
-      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( "  + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
-      +  " ) VALUES ('Pat', 6, 2, 1)");
-      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( "  + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
-      +  " ) VALUES ('Cob', 1, 2, 4)");
+      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( " + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
+            + " ) VALUES ('Ant', 12, 3, 0)");
+      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( " + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
+            + " ) VALUES ('Pat', 6, 2, 1)");
+      db.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " ( " + USER_NAME_COLUMN + ", " + GUESSES_COLUMN + ", " + SHOW_SUCCESS_COLUMN + ", " + SHOW_FAIL_COLUMN
+            + " ) VALUES ('Cob', 1, 2, 4)");
    }
 
    @Override
@@ -123,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery("SELECT * FROM " + WORDS_TABLE_NAME + " ORDER BY RANDOM() LIMIT 1", null);
             String word = null;
             if (cursor.moveToFirst()) {
-               word = cursor.getString(cursor.getColumnIndex("word")); // todo constants
+               word = cursor.getString(cursor.getColumnIndex(WORD_COLUMN));
             }
             cursor.close();
             db.close();
@@ -158,21 +158,25 @@ public class DBHelper extends SQLiteOpenHelper {
    }
 
 
-   public void saveUsers(List<Player> players) {
-      SQLiteDatabase db = getWritableDatabase();
-      db.delete(PLAYERS_TABLE_NAME, null, null);
+   public void saveUsers(final List<Player> players) { // todo check thread
+      new Thread(new Runnable() {
+         @Override
+         public void run() {
+            SQLiteDatabase db = getWritableDatabase();
+            db.delete(PLAYERS_TABLE_NAME, null, null);
 
-      ContentValues contentValues;
-      for (Player player : players) {
-         contentValues = new ContentValues();
-         contentValues.put(USER_NAME_COLUMN, player.getName());
-         contentValues.put(GUESSES_COLUMN, 0);
-         contentValues.put(SHOW_SUCCESS_COLUMN, 0);
-         contentValues.put(SHOW_FAIL_COLUMN, 0);
+            ContentValues contentValues;
+            for (Player player : players) {
+               contentValues = new ContentValues();
+               contentValues.put(USER_NAME_COLUMN, player.getName());
+               contentValues.put(GUESSES_COLUMN, 0);
+               contentValues.put(SHOW_SUCCESS_COLUMN, 0);
+               contentValues.put(SHOW_FAIL_COLUMN, 0);
 
-         db.insert(PLAYERS_TABLE_NAME, null, contentValues);
-      }
-
+               db.insert(PLAYERS_TABLE_NAME, null, contentValues);
+            }
+         }
+      }).start();
    }
 
    public void incrementShowSuccess(Player host) {
@@ -187,10 +191,15 @@ public class DBHelper extends SQLiteOpenHelper {
       incrementColumnValue(GUESSES_COLUMN, winner.getName());
    }
 
-   private void incrementColumnValue(String columnToIncrement, String playerName) {
-      SQLiteDatabase db = getWritableDatabase();
-      String updateQuery = "UPDATE " + PLAYERS_TABLE_NAME + " SET " + columnToIncrement + " = " + columnToIncrement + " + 1 WHERE " + USER_NAME_COLUMN + " = '" + playerName + "'";
-      db.rawQuery(updateQuery, null);
-      db.close();
+   private void incrementColumnValue(final String columnToIncrement, final String playerName) {
+      new Thread(new Runnable() {
+         @Override
+         public void run() {
+            SQLiteDatabase db = getWritableDatabase();
+            String updateQuery = "UPDATE " + PLAYERS_TABLE_NAME + " SET " + columnToIncrement + " = " + columnToIncrement + " + 1 WHERE " + USER_NAME_COLUMN + " = '" + playerName + "'";
+            db.rawQuery(updateQuery, null);
+            db.close();
+         }
+      }).start();
    }
 }

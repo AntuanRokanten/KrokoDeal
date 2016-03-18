@@ -2,7 +2,7 @@ package com.implemica.krokodeal.ui.listeners;
 
 import android.view.View;
 
-import com.implemica.krokodeal.util.UiUtility;
+import com.implemica.krokodeal.util.UiUtils;
 
 /**
  * @author ant
@@ -22,7 +22,7 @@ public class HideKeyboardListener implements View.OnFocusChangeListener {
    @Override
    public void onFocusChange(View v, boolean hasFocus) {
       if(!hasFocus) {
-         UiUtility.hideSoftKeyboard(v);
+         UiUtils.hideSoftKeyboard(v);
       }
    }
 }

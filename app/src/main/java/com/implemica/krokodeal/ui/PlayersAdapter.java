@@ -20,13 +20,13 @@ import rx.Observer;
 /**
  * @author ant
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  todo rename and refactor
+public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHolder> { //  todo rename and refactor
 
    private List<Player> players;
    int hostIndex = -1;
 
    // Provide a suitable constructor (depends on the kind of dataset)
-   public MyAdapter(Context context) {
+   public PlayersAdapter(Context context) {
       players = new ArrayList<>();
       DBHelper dbHelper = new DBHelper(context);
       Observable<Player> playersObservable = dbHelper.getPlayers();
@@ -52,7 +52,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
 //      this.players.add(new Player("Kuz", false));
    }
 
-   public void addPlayer(Player newPlayer) {
+   public void addPlayer(Player newPlayer) throws PlayerWithThisNameExistsException {
+      for (Player player : players) {
+         if (player.getName().equals(newPlayer.getName())) {
+            throw new PlayerWithThisNameExistsException();
+         }
+      }
+
       int newPlayerPosition = getItemCount();
       players.add(newPlayerPosition, newPlayer);
       notifyItemInserted(newPlayerPosition);
@@ -107,6 +113,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
       return players.size();
    }
 
+   public void removePlayer(int playerPosition) {
+      if(playerPosition == hostIndex) {
+         hostIndex = -1; // resetting host index
+      }
+
+      if(playerPosition < hostIndex) {
+         hostIndex --;
+      }
+
+      players.remove(playerPosition);
+      notifyItemRemoved(playerPosition);
+   }
+
    // Provide a reference to the views for each data item
    // Complex data items may need more than one view per item, and
    // you provide access to all the views for a data item in a view holder
@@ -136,6 +155,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> { //  
 
          changeHost(clickedPosition);
       }
+   }
+
+   public static class PlayerWithThisNameExistsException extends Exception {
+
    }
 
 }

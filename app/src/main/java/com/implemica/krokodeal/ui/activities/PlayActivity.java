@@ -5,18 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
 import com.implemica.krokodeal.ui.fragments.PlayShowFragment;
 import com.implemica.krokodeal.ui.fragments.SetWordFragment;
-import com.implemica.krokodeal.ui.listeners.HideKeyboardListener;
 import com.implemica.krokodeal.util.TimerData;
-import com.implemica.krokodeal.util.UiUtility;
 
 import java.util.ArrayList;
 import java.util.List;

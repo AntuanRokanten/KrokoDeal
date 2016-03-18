@@ -3,15 +3,16 @@ package com.implemica.krokodeal.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.implemica.krokodeal.R;
+import com.implemica.krokodeal.util.UiUtils;
 
 /**
  * @author ant
@@ -24,19 +25,22 @@ public class PlayShowFragment extends Fragment {
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-      final View view = inflater.inflate(R.layout.play_show_fragment, container, false);
-      start = (Button) view.findViewById(R.id.start_showing_button);
+      final View rootView = inflater.inflate(R.layout.play_show_fragment, container, false);
+      start = (Button) rootView.findViewById(R.id.start_showing_button);
 
       start.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            String wordToGuess = ((SetWordFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.word_container)).getWordToGuess();
-            if(wordToGuess.isEmpty()) {
-               // todo show snack
+            FragmentActivity activity = getActivity();
+            FragmentManager supportFragmentManager = activity.getSupportFragmentManager();
+
+            String wordToGuess = ((SetWordFragment) supportFragmentManager.findFragmentById(R.id.word_container)).getWordToGuess();
+            if (wordToGuess.isEmpty()) {
+               UiUtils.showPinkSnackbar(rootView, activity, R.string.snackbar_empty_word);
                return;
             }
 
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             transaction.replace(R.id.play_fragment_container, new PlayFragment());
 
             WordToGuessFragment guessFragment = new WordToGuessFragment();
@@ -51,7 +55,7 @@ public class PlayShowFragment extends Fragment {
          }
       });
 
-      return view;
+      return rootView;
    }
 
 }

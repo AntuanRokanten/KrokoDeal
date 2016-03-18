@@ -53,6 +53,11 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
     */
    private PlayActivity playActivity;
 
+   /**
+    * Custom count down timer
+    */
+   private KrokoCountDownTimer krokoCountDownTimer;
+
    @Nullable
    @Override
    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,12 +89,21 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
             playerDialog.setArguments(bundle);
             playerDialog.setChooseWinnerListener(PlayFragment.this);
             playerDialog.show(playActivity.getSupportFragmentManager(), "TAG"); // todo tag?
+
+            if(krokoCountDownTimer != null) {
+               krokoCountDownTimer.cancel();
+            }
          }
       });
 
       failureButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+
+            if(krokoCountDownTimer != null) {
+               krokoCountDownTimer.cancel();
+            }
+
             dbHelper.incrementShowFail(playActivity.getHost());
             resetUI();
          }
@@ -109,7 +123,7 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
       } else {
          long millis = MINUTES.toMillis(timerData.getMinutes()) + SECONDS.toMillis(timerData.getSeconds());
 
-         KrokoCountDownTimer krokoCountDownTimer = new KrokoCountDownTimer(millis);
+         krokoCountDownTimer = new KrokoCountDownTimer(millis);
          krokoCountDownTimer.start();
       }
    }
@@ -171,6 +185,7 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
       @Override
       public void onFinish() {
          if (getView() != null) {
+            resetUI();
             Snackbar.make(getView(), R.string.snackbar_fail, Snackbar.LENGTH_LONG).show();
          } else {
             Log.e(LOG_TAG, "Unable to show snackbar with message: " + getString(R.string.snackbar_fail));
