@@ -158,7 +158,7 @@ public class DBHelper extends SQLiteOpenHelper {
    }
 
 
-   public void saveUsers(final List<Player> players) { // todo check thread
+   public void saveUsers(final List<Player> players) {
       new Thread(new Runnable() {
          @Override
          public void run() {

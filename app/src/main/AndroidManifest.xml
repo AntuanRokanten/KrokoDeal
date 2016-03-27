@@ -28,9 +28,13 @@
                 android:windowSoftInputMode="stateHidden"/>
 
         <activity
-                android:parentActivityName=".ui.activities.MainActivity"
                 android:name=".ui.activities.RulesActivity"
-                android:label="@string/rules_activity_label"/>
+                android:label="@string/rules_activity_label"
+                android:parentActivityName=".ui.activities.MainActivity"/>
+
+        <activity
+                android:name=".ui.activities.ResultActivity"
+                android:parentActivityName=".ui.activities.PlayActivity"/>
 
     </application>
 

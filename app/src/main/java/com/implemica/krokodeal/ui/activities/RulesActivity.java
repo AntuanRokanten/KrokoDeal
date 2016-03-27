@@ -22,7 +22,11 @@ public class RulesActivity extends AppCompatActivity {
       TextView rules = (TextView) findViewById(R.id.rules_text);
       rules.setText(Html.fromHtml(getString(R.string.game_rules)));
 
-      Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      configToolbar();
+   }
+
+   private void configToolbar() {
+      Toolbar toolbar = (Toolbar) findViewById(R.id.rules_toolbar);
       setSupportActionBar(toolbar);
 
       ActionBar actionBar = getSupportActionBar();

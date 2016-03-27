@@ -171,4 +171,9 @@ public class SettingsActivity extends AppCompatActivity implements AddPlayerList
       }
    }
 
+   @Override
+   public void onBackPressed() {
+      startActivity(new Intent(this, MainActivity.class));
+   }
+
 }

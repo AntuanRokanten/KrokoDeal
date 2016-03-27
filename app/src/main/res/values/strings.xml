@@ -29,6 +29,7 @@
     <string name="snackbar_player_exists">Игрок с таким именем уже существует</string>
     <string name="snackbar_empty_word">Загадай слово ведущему</string>
     <string name="who_guessed">Кто отгадал?</string>
+    <string name="results">Результаты</string>
     <string name="game_rules"><![CDATA[<div>Ведущий загадывает слово и человек пытается его изобразить, а остальная компания угадывает, что было загадано.</div>
 <div><b>Показывая слово МОЖНО:</b></div>
 <div>Двигать и махать всем, чем угодно &mdash; ногами, руками, глазами, языком, да хоть ушами!</div>
@@ -46,4 +47,5 @@
 <div>Изображать слово по частям (слогам)</div>]]>
 </string>
     <string name="rules_activity_label">Правила</string>
+    <string name="settings">Настройки</string>
 </resources>

@@ -1,17 +1,29 @@
 package com.implemica.krokodeal.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
 import com.implemica.krokodeal.ui.fragments.PlayShowFragment;
 import com.implemica.krokodeal.ui.fragments.SetWordFragment;
 import com.implemica.krokodeal.util.TimerData;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +43,8 @@ public class PlayActivity extends AppCompatActivity {
 
    private Fragment setWordFragment = new SetWordFragment();
 
+   private Drawer drawer;
+
    private int hostIndex;
 
    @Override
@@ -39,6 +53,11 @@ public class PlayActivity extends AppCompatActivity {
       setContentView(R.layout.play_activity);
 
       initViews();
+      Toolbar toolbar = (Toolbar) findViewById(R.id.play_toolbar);
+      setSupportActionBar(toolbar);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+      configDrawer(toolbar);
 
       Intent intent = getIntent();
       players = intent.getParcelableArrayListExtra("players");
@@ -51,6 +70,49 @@ public class PlayActivity extends AppCompatActivity {
       transaction.replace(R.id.play_fragment_container, playShowFragment);
       transaction.replace(R.id.word_container, setWordFragment);
       transaction.commit();
+   }
+
+   private void configDrawer(Toolbar toolbar) {
+
+      drawer = new DrawerBuilder()
+            .withActivity(this)
+            .withToolbar(toolbar)
+            .withActionBarDrawerToggle(true)
+            .withHeader(R.layout.drayer_header)
+            .addDrawerItems(
+                  createSecondaryDrawerItem(R.string.results, R.drawable.result_icon, 1),
+                  createSecondaryDrawerItem(R.string.settings, R.drawable.settings_icon, 2),
+                  new DividerDrawerItem())
+            .withOnDrawerItemClickListener(new DrawelOnClickListener())
+            .withSliderBackgroundColorRes(R.color.accent)
+            .withStickyFooterShadow(false)
+            .withFooterDivider(true)
+            .withSelectedItem(-1)
+            .build();
+//      drawer.addStickyFooterItem(new SecondaryDrawerItem()
+//            .withName("О программе")
+//            .withSelectedColor(Color.CYAN).withSelectedColor(Color.MAGENTA)
+//            .withTextColor(Color.BLUE)); // todo
+   }
+
+   private SecondaryDrawerItem createSecondaryDrawerItem(int nameRes, int iconRes, long identifier) {
+      return new SecondaryDrawerItem()
+            .withName(getResources().getString(nameRes))
+            .withIdentifier(identifier)
+            .withTextColor(Color.WHITE)
+            .withSelectedTextColorRes(R.color.colorAccent)
+            .withIcon(iconRes)
+            .withSelectedColorRes(R.color.colorPrimary)
+            .withSelectedIconColorRes(R.color.colorAccent);
+   }
+
+   @Override
+   public void onBackPressed() {
+      if (drawer.isDrawerOpen()) {
+         drawer.closeDrawer(); // closing drawing on back pressed if it's open
+      } else {
+         super.onBackPressed();
+      }
    }
 
    private void initViews() {
@@ -73,7 +135,7 @@ public class PlayActivity extends AppCompatActivity {
       return hostIndex;
    }
 
-   public void changeHost(Player newHost){
+   public void changeHost(Player newHost) {
       String newHostName = newHost.getName();
       currentPlayer.setText(newHostName);
 
@@ -90,5 +152,25 @@ public class PlayActivity extends AppCompatActivity {
          }
       }
       return -1;
+   }
+
+   private class DrawelOnClickListener implements Drawer.OnDrawerItemClickListener {
+
+      @Override
+      public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+         boolean result = false;
+         long identifier = drawerItem.getIdentifier();
+
+         if (identifier == 1) { // 'results' item clicked
+            startActivity(new Intent(PlayActivity.this, ResultActivity.class));
+            result = true;
+         } else if (identifier == 2) { // 'settings' item clicked
+            startActivity(new Intent(PlayActivity.this,  SettingsActivity.class));
+            result = true;
+         }
+
+         return result;
+      }
+
    }
 }
