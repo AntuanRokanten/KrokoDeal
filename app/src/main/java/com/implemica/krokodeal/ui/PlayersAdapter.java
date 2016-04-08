@@ -48,8 +48,6 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHold
          }
       });
 
-//      this.players.add(new Player("Ant", false));
-//      this.players.add(new Player("Kuz", false));
    }
 
    public void addPlayer(Player newPlayer) throws PlayerWithThisNameExistsException {

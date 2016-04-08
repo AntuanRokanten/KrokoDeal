@@ -12,6 +12,12 @@ public class Player implements Parcelable {
 
    private boolean isHost;
 
+   private int guesses;
+
+   private int showSuccess;
+
+   private int showFailure;
+
    public Player(String name) {
       this.name = name;
    }
@@ -19,6 +25,13 @@ public class Player implements Parcelable {
    public Player(String name, boolean isHost) {
       this.name = name;
       this.isHost = isHost;
+   }
+
+   public Player(String name, int guesses, int showSuccess, int showFailure) {
+      this.name = name;
+      this.guesses = guesses;
+      this.showSuccess = showSuccess;
+      this.showFailure = showFailure;
    }
 
    protected Player(Parcel in) {
@@ -52,6 +65,18 @@ public class Player implements Parcelable {
 
    public void setIsHost(boolean isHost) {
       this.isHost = isHost;
+   }
+
+   public int getGuesses() {
+      return guesses;
+   }
+
+   public int getShowSuccess() {
+      return showSuccess;
+   }
+
+   public int getShowFailure() {
+      return showFailure;
    }
 
    @Override

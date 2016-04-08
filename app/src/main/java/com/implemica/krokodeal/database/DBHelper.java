@@ -94,12 +94,36 @@ public class DBHelper extends SQLiteOpenHelper {
       }
    }
 
-   public Observable<Player> getPlayers() {
+   public Observable<List<Player>> getStats() {
       return Observable.create(new Observable.OnSubscribe<Player>() {
          @Override
          public void call(Subscriber<? super Player> subscriber) {
             SQLiteDatabase db = getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT * FROM " + PLAYERS_TABLE_NAME, null);
+
+            while (cursor.moveToNext()) {
+               String playerName = cursor.getString(cursor.getColumnIndex(USER_NAME_COLUMN));
+               int guesses = cursor.getInt(cursor.getColumnIndex(GUESSES_COLUMN));
+               int showFail = cursor.getInt(cursor.getColumnIndex(SHOW_FAIL_COLUMN));
+               int showSuccess = cursor.getInt(cursor.getColumnIndex(SHOW_SUCCESS_COLUMN));
+               subscriber.onNext(new Player(playerName, guesses, showSuccess, showFail));
+            }
+
+            cursor.close();
+            db.close();
+
+            subscriber.onCompleted();
+
+         }
+      }).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).toList();
+   }
+
+   public Observable<Player> getPlayers() {
+      return Observable.create(new Observable.OnSubscribe<Player>() {
+         @Override
+         public void call(Subscriber<? super Player> subscriber) {
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT " + USER_NAME_COLUMN + " FROM " + PLAYERS_TABLE_NAME, null);
 
             while (cursor.moveToNext()) {
                String playerName = cursor.getString(cursor.getColumnIndex(USER_NAME_COLUMN));
@@ -192,13 +216,15 @@ public class DBHelper extends SQLiteOpenHelper {
    }
 
    private void incrementColumnValue(final String columnToIncrement, final String playerName) {
+      SQLiteDatabase db = getWritableDatabase();
+      String updateQuery = "UPDATE " + PLAYERS_TABLE_NAME + " SET " + columnToIncrement + " = " + columnToIncrement + " + 1 WHERE " + USER_NAME_COLUMN + " = '" + playerName + "'";
+      db.execSQL(updateQuery);
+      db.close();
+
       new Thread(new Runnable() {
          @Override
          public void run() {
-            SQLiteDatabase db = getWritableDatabase();
-            String updateQuery = "UPDATE " + PLAYERS_TABLE_NAME + " SET " + columnToIncrement + " = " + columnToIncrement + " + 1 WHERE " + USER_NAME_COLUMN + " = '" + playerName + "'";
-            db.rawQuery(updateQuery, null);
-            db.close();
+
          }
       }).start();
    }
