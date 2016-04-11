@@ -7,10 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.implemica.krokodeal.Player;
 import com.implemica.krokodeal.R;
@@ -22,8 +20,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +68,15 @@ public class PlayActivity extends AppCompatActivity {
       transaction.commit();
    }
 
+   @Override
+   protected void onResume() {
+      super.onResume();
+
+//      if(drawer.isDrawerOpen()) {
+//         drawer.setSelection(-1);
+//      }
+   }
+
    private void configDrawer(Toolbar toolbar) {
 
       drawer = new DrawerBuilder()
@@ -83,7 +88,7 @@ public class PlayActivity extends AppCompatActivity {
                   createSecondaryDrawerItem(R.string.results, R.drawable.result_icon, 1),
                   createSecondaryDrawerItem(R.string.settings, R.drawable.settings_icon, 2),
                   new DividerDrawerItem())
-            .withOnDrawerItemClickListener(new DrawelOnClickListener())
+            .withOnDrawerItemClickListener(new DrawerOnClickListener())
             .withSliderBackgroundColorRes(R.color.accent)
             .withStickyFooterShadow(false)
             .withFooterDivider(true)
@@ -154,7 +159,7 @@ public class PlayActivity extends AppCompatActivity {
       return -1;
    }
 
-   private class DrawelOnClickListener implements Drawer.OnDrawerItemClickListener {
+   private class DrawerOnClickListener implements Drawer.OnDrawerItemClickListener {
 
       @Override
       public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {

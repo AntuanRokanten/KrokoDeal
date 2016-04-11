@@ -45,14 +45,14 @@
                 android:maxLength="1"
                 android:text="@string/time_zero"
                 android:id="@+id/count_down_mins"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/large_font_size">
         </android.support.v7.widget.AppCompatTextView>
 
         <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
                 android:text="@string/timer_separator"
                 android:textSize="@dimen/middle_font_size">
         </android.support.v7.widget.AppCompatTextView>
@@ -64,7 +64,7 @@
                 android:inputType="number"
                 android:maxLength="2"
                 android:text="@string/time_zero"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/large_font_size">
         </android.support.v7.widget.AppCompatTextView>
     </android.support.v7.widget.LinearLayoutCompat>

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 android:text="@string/player"
-                android:textColor="@color/text_semitransparent"
+                android:textColor="@color/textSemitransparent"
                 android:textSize="@dimen/large_font_size"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 android:text="@string/shows_word"
-                android:textColor="@color/text_semitransparent"
+                android:textColor="@color/textSemitransparent"
                 android:textSize="35sp"/>
 
         <android.support.v7.widget.LinearLayoutCompat

@@ -3,8 +3,11 @@
     <color name="colorPrimary">#FFEB3B</color>
     <color name="colorPrimaryDark">#F9A825</color>
     <color name="colorAccent">#8FC93A</color>
+    <color name="colorAccentSemitransparent">#558FC93A</color>
+    <color name="colorPrimarySemitransparent">#55FFEB3B</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="gray">#88000000</color>
     <color name="pink">#FF8A80</color>
-    <color name="text_semitransparent">#FFFFFF80</color>
+    <color name="textSemitransparent">#FFFFFF80</color>
 </resources>

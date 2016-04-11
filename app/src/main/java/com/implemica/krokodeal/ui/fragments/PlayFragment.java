@@ -22,6 +22,8 @@ import com.implemica.krokodeal.database.DBHelper;
 import com.implemica.krokodeal.ui.activities.PlayActivity;
 import com.implemica.krokodeal.ui.dialogs.ChoosePlayerDialog;
 import com.implemica.krokodeal.util.TimerData;
+import com.implemica.krokodeal.util.UiUtils;
+import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
 
@@ -86,6 +88,7 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
 
             bundle.putParcelableArrayList("players", players);
 
+            playerDialog.setCancelable(false);
             playerDialog.setArguments(bundle);
             playerDialog.setChooseWinnerListener(PlayFragment.this);
             playerDialog.show(playActivity.getSupportFragmentManager(), "TAG"); // todo tag?
@@ -175,7 +178,7 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
 
          String secondsText = String.valueOf(secondsLeft);
          if (secondsText.length() == 1) {
-            secondsText = "0" + secondsText;
+            secondsText = "0" + secondsText;// todo via formatter
          }
 
          minutes.setText(String.valueOf(minutesLeft));
@@ -185,8 +188,10 @@ public class PlayFragment extends Fragment implements ChooseWinnerListener {
       @Override
       public void onFinish() {
          if (getView() != null) {
-            resetUI();
-            Snackbar.make(getView(), R.string.snackbar_fail, Snackbar.LENGTH_LONG).show();
+            UiUtils.showPinkSnackbar(getView(), PlayFragment.this.getActivity(), R.string.snackbar_fail);
+
+            resetUI(); // todo remove duplicate
+            dbHelper.incrementShowFail(playActivity.getHost());
          } else {
             Log.e(LOG_TAG, "Unable to show snackbar with message: " + getString(R.string.snackbar_fail));
          }

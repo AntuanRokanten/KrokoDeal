@@ -47,5 +47,9 @@
 <div>Изображать слово по частям (слогам)</div>]]>
 </string>
     <string name="rules_activity_label">Правила</string>
+    <string name="guessed_stat">Отгадано слов</string>
+    <string name="show_success">Показано отгаданных слов</string>
+    <string name="show_failure">Показано неотгаданных слов</string>
+    <string name="stats_load_failure">Не удалось загрузить результаты :(</string>
     <string name="settings">Настройки</string>
 </resources>
